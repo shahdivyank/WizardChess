@@ -6,10 +6,6 @@ String voice, pieceType;
 int val[8] = {0, 208, 416, 624, 832, 1040, 1248, 1456};
 int x1, y1, x2, y2;
 
-//int limitA = 9;
-//int limitB = 10;
-//int limitC = 11;
-
 const int stepPinX = 2;
 const int stepPinY = 3;
 const int stepPinZ = 4;
@@ -27,22 +23,6 @@ void servoDown() {
   myservo.write(135);
   delay(500);
 }
-
-//void homing() {
-//  digitalWrite(dirPinX, LOW);
-//  digitalWrite(dirPinY, LOW);
-//  digitalWrite(dirPinZ, HIGH);
-//
-//  while (digitalRead(limitA) && digitalRead(limitC)) xOneStep();
-//  while (digitalRead(limitB)) yOneStep();
-//
-//  digitalWrite(dirPinX, HIGH);
-//  digitalWrite(dirPinY, HIGH);
-//  digitalWrite(dirPinZ, LOW);
-//  for (int i = 0; i < 200; i++) xOneStep();
-//  for (int i = 0; i < 100; i++) yOneStep();
-//
-//}
 
 void stepMotorX(int xMotor, int zMotor, int steps) {
   for (int i = 0; i < steps; i++) {
@@ -142,12 +122,11 @@ Serial.println("at x1 position");
 
     Serial.println("moving servo down");
     servoDown();
-//    homing();
-digitalWrite(dirPinX, HIGH);
-digitalWrite(dirPinZ, HIGH);
-digitalWrite(dirPinY, HIGH);
-stepMotorX(stepPinX, stepPinZ, x2);
-stepMotorY(stepPinY, y2);
+    digitalWrite(dirPinX, HIGH);
+    digitalWrite(dirPinZ, HIGH);
+    digitalWrite(dirPinY, HIGH);
+    stepMotorX(stepPinX, stepPinZ, x2);
+    stepMotorY(stepPinY, y2);
       
     Serial.println("Move Complete");
 
@@ -182,10 +161,6 @@ stepMotorY(stepPinY, y2);
 
   int parseData(String data) {
 
-//    int stringLenght = data.length() + 1;
-//    char arrayData[stringLenght];
-//    data.toCharArray(arrayData, stringLenght);
-
     int moveIndex = data.indexOf(' ');
     int pieceIndex = data.indexOf(' ', moveIndex + 1);
     int prepositionIndex_1 = data.indexOf(' ', pieceIndex + 1);
@@ -212,28 +187,6 @@ stepMotorY(stepPinY, y2);
     preposition_2.trim();
     y2String.trim();
     x2String.trim();
-
-    Serial.println(data);
-
-    Serial.println(moveType);
-    Serial.println(pieceType);
-Serial.println(preposition_1);
-Serial.println(y1String);
-Serial.println(x1String);
-Serial.println(preposition_2);
-Serial.println(y2String);
-Serial.println(x2String);
-
-    
-    Serial.print("y1: ");
-    Serial.println(y1);
-    Serial.print("x1: ");
-    Serial.println(x1);
-    Serial.print("y2: ");
-    Serial.println(y2);
-    Serial.print("x2: ");
-    Serial.println(x2);
-
     
     y1 = convertToXStepValues(y1String);
     x1 = convertToYStepValues(x1String);
@@ -256,7 +209,7 @@ Serial.println(x2String);
       y1 = y2;
       y2 = temp;
     } else if (!(preposition_1 == "from" && preposition_2 == "to")) {
-      Serial.print("Preposition"); return -1;
+      return -1;
     }
     pieceValidation(pieceType);
 
@@ -347,12 +300,10 @@ Serial.println(x2String);
     pinMode(dirPinZ, OUTPUT);
     myservo.attach(1);
     pinMode(9, OUTPUT);
-//    fg();
-servoDown();
+    servoDown();
 
-pinMode(8, OUTPUT);
-  digitalWrite(8, LOW);
-
+    pinMode(8, OUTPUT);
+    digitalWrite(8, LOW);
   }
 
   void loop() {
@@ -371,7 +322,4 @@ pinMode(8, OUTPUT);
 
     }
     voice = "";
-
-//Serial.println(digitalRead(10));
-//delay(1000);
   }
