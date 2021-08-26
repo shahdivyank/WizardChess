@@ -1,3 +1,13 @@
+/*
+  Created By: Divyank Shah
+  15th March 2021
+  
+  Wizard Chess Final Program
+  
+  The following program is the final program implemented allowing the Arduino to parse incoming bluetooth data and be able to translate that information to     instructions that the Arduino can use to move the stepper motors.
+  
+*/
+
 #include "Servo.h"
 Servo myservo;
 int pos = 0;
