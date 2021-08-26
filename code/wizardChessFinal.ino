@@ -113,7 +113,7 @@ void knightMove(bool knightDir) {
     stepMotorX(stepPinX, stepPinZ, x1);
     stepMotorY(stepPinY, y1);
     servoUp();
-Serial.println("at x1 position");
+    Serial.println("at x1 position");
     if (pathType == 0) {
       stepMotorX(stepPinX, stepPinZ, x2 - x1);
       stepMotorY(stepPinY, y2 - y1);
