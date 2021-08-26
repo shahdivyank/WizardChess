@@ -1,3 +1,10 @@
+/*
+
+  The following program setups the stepper motors and turns them in clockwise and counterclockwise manners to ensure they are wired correctly and working as intended.
+  
+*/
+
+
 //Used to send the number of steps
 #define motorXStep 2
 #define motorYStep 3
